@@ -31,7 +31,10 @@ class Board:
         if board[x][y].__str__() == " ":
             return (0, None, None)
         return (1, board[x][y])
-        
+
+    def is_guarded(self, x, y):
+        pass
+    
     def captured_piece(self, piece, color):
         pass
                       

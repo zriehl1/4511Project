@@ -21,6 +21,8 @@ class Piece:
     # this function won't work for King or Pawn 
     def build_board_states(self, posList):
         for position in posList:
+            new_pos = (self.cur_x + position[0], self.cur_y + position[1])
+            tile_info = self.board.is_occupied(new_pos[0], new_pos[1])
             
 
     def __str__(self):
