@@ -6,6 +6,8 @@ class Board:
     x_dim = None
     y_dim = None
     board = None
+    black = []
+    white = []
 
     def __init__(self, x, y):
         self.x_dim = x
@@ -37,4 +39,13 @@ class Board:
         return self.board[pos[0]][pos[1]]
 
     def isGuarded(self, pos, color):
-        pass
+        if color == "White":
+            for el in self.white:
+                if el.canAttack(pos):
+                    return True
+            return False
+        elif color == "Black":
+            for el in self.black:
+                if el.canAttack(pos):
+                    return True
+            return False
