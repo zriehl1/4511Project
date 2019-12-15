@@ -65,3 +65,7 @@ class Board:
                 if el.canAttack(pos):
                     return True
             return False
+
+    def movePiece(self, from, to):
+        piece = self.board[from[0]][from[1]]
+        
