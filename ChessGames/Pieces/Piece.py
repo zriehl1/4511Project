@@ -1,17 +1,12 @@
 class Piece:
 
-    pos = None
-    color = None
-    char = None
-    board = None
-    dynamic = False
-    moves = []
-
     def __init__(self, board, pos, color, char):
+        self.moved = False
         self.color = color
         self.pos = pos
         self.char = char
         self.board = board
+        self.moves = []
 
     def _straightMoves(self):
         return [(0,1),(1,0),(0,-1),(-1,0)]
@@ -29,12 +24,16 @@ class Piece:
         raise NotImplementedError
 
     def canAttack(self, pos):
-        if pos in self.getValidPositions():
+        positions = self.getValidPositions()
+        if pos in positions:
             return True
         return False
 
     def getPos(self):
         return self.pos
+
+    def setPos(self, pos):
+        self.pos = pos
 
     def getColor(self):
         return self.color

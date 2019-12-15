@@ -18,12 +18,17 @@ class Bishop(Piece):
         final = []
         done = False
         for move in self.moves:
+            done = False
             for i in range(max_dist+1):
                 if i == 0 or done:
                     continue
-                new_pos = self._multiplyPos(move, i)
+                add = self._multiplyPos(move, i)
+                new_pos = (self.pos[0] + add[0], self.pos[1] + add[1])
                 piece = self.board.isOccupied(new_pos)
                 if piece == None or piece.getColor() == self.getColor():
                     done = True
                 else:
                     final.append(new_pos)
+                    if piece.getChar() != " ":
+                        done = True
+        return final

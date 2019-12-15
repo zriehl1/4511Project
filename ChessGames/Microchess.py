@@ -27,3 +27,9 @@ class Microchess():
             self.board.addPiece(piece)
         self.board.fillBlanks()
         self.board.printBoard()
+
+    def move(self, start, to):
+        self.board.movePiece(start, to)
+        
+    def play(self):
+        pass

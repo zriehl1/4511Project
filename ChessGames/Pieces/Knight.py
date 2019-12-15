@@ -29,3 +29,4 @@ class Knight(Piece):
                 continue
             if piece.getColor() != self.getColor():
                 final.append(new_pos)
+        return final

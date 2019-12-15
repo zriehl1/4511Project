@@ -14,6 +14,12 @@ class King(Piece):
         self.moves += self._straightMoves()
         self.moves += self._diagonalMoves()
 
+    def getSpaceAround(self):
+        final = []
+        for el in self.moves:
+            final.append((el[0] + self.pos[0], el[1] + self.pos[1]))
+        return final
+        
     def getValidPositions(self):
         guardColor = "White"
         if self.getColor() == "White":
