@@ -1,42 +1,40 @@
-# board[0][0] is bottom left, white is bottom, black is top
-# ' ' is unoccupied
+'''
+(0,0) is the bottom left of the board, with x taking you to the right and y taking you up
+'''
 class Board:
 
     x_dim = None
     y_dim = None
     board = None
-    black = None
-    white = None
-    
-    def init(self, x_dim, y_dim, b_pieces, w_pieces):
-        self.x_dim = x_dim
-        self.y_dim = y_dim
-        self.black = b_pieces
-        self.white = w_pieces
-        self.board = [[None for i in range(y_dim)] for i in range(x_dim)]
 
-    def print_board(self):
-        for i in range(x_dim):
-            for j in range(y_dim):
-                print(self.board[x_dim - (i+1)][j], end = ' ')
+    def __init__(self, x, y):
+        self.x_dim = x
+        self.y_dim = y
+        self.board = [["O" for i in range(y)] for i in range(x)]
+
+    def printBoard(self):
+        for i in range(self.y_dim-1, 0-1, -1):
+            for j in range(self.x_dim):
+                print(self.board[j][i], end=' ')
             print('')
-            
-    # returns (status, piece)
-    # -1 for error, 0 for not occupied, 1 for occupied
-    def is_occupied(self, x, y):
-        if x >= self.x_dim or x < 0:
-            return (-1, None)
-        if y >= self.y_dim or y < 0:
-            return (-1, None)
-        if board[x][y].__str__() == " ":
-            return (0, None, None)
-        return (1, board[x][y])
 
-    def is_guarded(self, x, y):
+    def getXDim(self):
+        return self.x_dim
+
+    def getYDim(self):
+        return self.y_dim
+
+    def checkBounds(self, pos):
+        if pos[0] < 0 or pos[0] >= self.x_dim:
+            return False
+        if pos[1] < 0 or pos[1] >= self.y_dim:
+            return False
+
+    # returns the piece at the position
+    def isOccupied(self, pos):
+        if not self.checkBounds(pos):
+            return None
+        return self.board[pos[0]][pos[1]]
+
+    def isGuarded(self, pos, color):
         pass
-    
-    def captured_piece(self, piece, color):
-        pass
-                      
-        
-        

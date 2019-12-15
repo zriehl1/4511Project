@@ -1,48 +1,44 @@
-# piece definitions for Pawn, Knight, Bishop, Rook, King
 class Piece:
 
-    board = None
-    cur_x = None
-    cur_y = None
+    pos = None
+    color = None
     char = None
+    board = None
+    dynamic = False
+    moves = []
 
-    def __init__(self, board, start_x, start_y, color, char):
-        self.board = board
-        self.cur_x = start_x
-        self.cur_y = start_y
+    def __init__(self, board, pos, color, char):
+        self.color = color
+        self.pos = pos
         self.char = char
+        self.board = board
 
-    def getAllMoves(self):
+    def _straightMoves(self):
+        return [(0,1),(1,0),(0,-1),(-1,0)]
+
+    def _diagonalMoves(self):
+        return [(1,1),(-1,1),(1,-1),(-1,-1)]
+
+    def _multiplyPos(self, pos, mult):
+        return (pos[0] * mult, pos[1] * mult)
+
+    def buildMoveSet(self):
         raise NotImplementedError
 
-    def getPosition(self):
-        return (self.cur_x, self.cur_y)
+    def getValidPositions(self):
+        raise NotImplementedError
 
-    # this function won't work for King or Pawn 
-    def build_board_states(self, posList):
-        for position in posList:
-            new_pos = (self.cur_x + position[0], self.cur_y + position[1])
-            tile_info = self.board.is_occupied(new_pos[0], new_pos[1])
-            
+    def canAttack(self, pos):
+        raise NotImplementedError
+
+    def getPos(self):
+        return self.pos
+
+    def getColor(self):
+        return self.color
+
+    def getChar(self):
+        return self.char
 
     def __str__(self):
-        return char
-
-class Blank(Piece):
-    def __init__(self, board, start_x, start_y, color):
-        super().__init__(board, start_x, start_y, color, " ")
-
-    def getAllMoves(self):
-        return []
-    
-
-            
-
-
-
-        
-
-        
-    
-
-    
+        return self.color[0] + self.char
