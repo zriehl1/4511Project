@@ -101,8 +101,26 @@ class TestBoard(unittest.TestCase):
         print("-------------------------------------------")
         self.assertEqual(result, False)
 
+    def test_checkmate_distance(self):
+        self.board.addPiece(King(self.board, (0,4), "Black"))
+        self.board.addPiece(Rook(self.board, (0,2), "White"))
+        self.board.addPiece(Rook(self.board, (2,4), "White"))
+        self.board.addPiece(King(self.board, (2,2), "White"))
+        self.board.printBoard()
+        print("-------------------------------------------")
+        result = self.board.isCheckmate("Black")
+        self.assertEqual(result, True)
 
-
+    def test_checkmate_uncaptureable(self):
+        self.board.addPiece(King(self.board, (0,4), "Black"))
+        self.board.addPiece(Rook(self.board, (0,2), "White"))
+        self.board.addPiece(Rook(self.board, (2,4), "White"))
+        self.board.addPiece(Rook(self.board, (0,3), "White"))
+        self.board.addPiece(King(self.board, (2,2), "White"))
+        self.board.printBoard()
+        print("-------------------------------------------")
+        result = self.board.isCheckmate("Black")
+        self.assertEqual(result, True)
 
 
 
