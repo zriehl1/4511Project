@@ -29,7 +29,9 @@ class Piece:
         raise NotImplementedError
 
     def canAttack(self, pos):
-        raise NotImplementedError
+        if pos in self.getValidPositions():
+            return True
+        return False
 
     def getPos(self):
         return self.pos
