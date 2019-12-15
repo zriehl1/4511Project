@@ -6,7 +6,7 @@ except:
 class Bishop(Piece):
 
     def __init__(self, board, pos, color):
-        super().__init__(board, pos, color, "P")
+        super().__init__(board, pos, color, "B")
         self.buildMoveSet()
 
     #populate moves with all possible x,y additions

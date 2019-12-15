@@ -1,6 +1,8 @@
+from Pieces.AllPieces import Blank
 '''
 (0,0) is the bottom left of the board, with x taking you to the right and y taking you up
 '''
+
 class Board:
 
     x_dim = None
@@ -12,7 +14,7 @@ class Board:
     def __init__(self, x, y):
         self.x_dim = x
         self.y_dim = y
-        self.board = [["O" for i in range(y)] for i in range(x)]
+        self.board = [[None for i in range(y)] for i in range(x)]
 
     def printBoard(self):
         for i in range(self.y_dim-1, 0-1, -1):
@@ -31,6 +33,20 @@ class Board:
             return False
         if pos[1] < 0 or pos[1] >= self.y_dim:
             return False
+
+    def addPiece(self, piece):
+        if piece.getColor() == "Black":
+            self.black.append(piece)
+        elif piece.getColor() == "White":
+            self.white.append(piece)
+        pos = piece.getPos()
+        self.board[pos[0]][pos[1]] = piece
+
+    def fillBlanks(self):
+        for i in range(self.x_dim):
+            for j in range(self.y_dim):
+                if self.board[i][j] == None:
+                    self.board[i][j] = Blank(self, (i,j), "-")
 
     # returns the piece at the position
     def isOccupied(self, pos):
