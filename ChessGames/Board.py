@@ -91,6 +91,25 @@ class Board:
                 king = el
         return self.isGuarded(king.getPos(), other_color)
 
+    def isCheckmate(self, color):
+        king = None
+        pieces = None
+        attacking = None
+        if color == "White":
+            pieces = self.white
+            attacking = self.black
+        else:
+            pieces = self.black
+            attacking = self.white
+        for el in pieces:
+            if el.getChar() == "K":
+                king = el
+        if self.checkKing(color) and king.getValidPositions() == []:
+            # also have to check that the checkmate cant be blocked
+            return True
+        return False
+
+
     # remove a piece from the game
     def capturePiece(self, piece):
         if piece.getChar() == " ":

@@ -19,7 +19,7 @@ class King(Piece):
         for el in self.moves:
             final.append((el[0] + self.pos[0], el[1] + self.pos[1]))
         return final
-        
+
     def getValidPositions(self):
         guardColor = "White"
         if self.getColor() == "White":
@@ -30,6 +30,11 @@ class King(Piece):
             piece = self.board.isOccupied(new_pos)
             if piece == None:
                 continue
+            if new_pos == (1,2):
+                print(self.board.isGuarded(new_pos, guardColor))
+                print(guardColor)
+                for piece in self.board.black:
+                    print(piece.canAttack(new_pos))
             if not self.board.isGuarded(new_pos, guardColor) and piece.getColor() != self.getColor():
                 final.append(new_pos)
         return final
