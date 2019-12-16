@@ -45,7 +45,7 @@ class TestPawn(unittest.TestCase):
         board.printBoard()
         print("-------------------------------------------")
         result = pawn.canAttack((1,1))
-        self.assertEqual(result, True)
+        self.assertNotEqual(result, False)
         result = pawn.canAttack((3,1))
         self.assertEqual(result, False)
         result = pawn.canAttack((2,1))

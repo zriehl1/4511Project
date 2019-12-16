@@ -39,9 +39,9 @@ class TestRook(unittest.TestCase):
         self.board.printBoard()
         print("-------------------------------------------")
         result = self.brook.canAttack((0,1))
-        self.assertEqual(result, True)
+        self.assertNotEqual(result, False)
         result = self.brook.canAttack((4,0))
-        self.assertEqual(result, True)
+        self.assertNotEqual(result, False)
         result = self.brook.canAttack((1,1))
         self.assertEqual(result, False)
 

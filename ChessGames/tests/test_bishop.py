@@ -62,11 +62,11 @@ class TestBishop(unittest.TestCase):
         self.board.printBoard()
         print("-------------------------------------------")
         result = self.bpiece.canAttack((3,1))
-        self.assertEqual(result, True)
+        self.assertNotEqual(result, False)
         result = self.bpiece.canAttack((4,0))
-        self.assertEqual(result, True)
+        self.assertNotEqual(result, False)
         result = self.bpiece.canAttack((3,3))
-        self.assertEqual(result, True)
+        self.assertNotEqual(result, False)
 
 
 
