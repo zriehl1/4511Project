@@ -61,7 +61,7 @@ class Board:
                     if pos in guarded:
                         return True
                     continue
-                if el.canAttack(pos):
+                if pos in el.getGuards():
                     return True
             return False
         elif color == "Black":
@@ -71,7 +71,7 @@ class Board:
                     if pos in guarded:
                         return True
                     continue
-                if el.canAttack(pos):
+                if pos in el.getGuards():
                     return True
             return False
 

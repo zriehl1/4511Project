@@ -30,3 +30,13 @@ class Knight(Piece):
             if piece.getColor() != self.getColor():
                 final.append(new_pos)
         return final
+
+    def getGuards(self):
+        final = []
+        for move in self.moves:
+            new_pos = (self.pos[0] + move[0], self.pos[1] + move[1])
+            piece = self.board.isOccupied(new_pos)
+            if piece == None:
+                continue
+            final.append(new_pos)
+        return final

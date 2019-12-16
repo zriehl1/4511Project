@@ -1,8 +1,10 @@
 try:
     from Piece import Piece
+    from Blank import Blank
 except:
     from .Piece import Piece
-
+    from .Blank import Blank
+    
 class King(Piece):
 
     def __init__(self, board, pos, color):
@@ -25,16 +27,16 @@ class King(Piece):
         if self.getColor() == "White":
             guardColor = "Black"
         final = []
+        self.board.board[self.pos[0]][self.pos[1]] = Blank(self.board, self.pos, " ")
         for move in self.moves:
             new_pos = (self.pos[0] + move[0], self.pos[1] + move[1])
             piece = self.board.isOccupied(new_pos)
             if piece == None:
                 continue
-            if new_pos == (1,2):
-                print(self.board.isGuarded(new_pos, guardColor))
-                print(guardColor)
-                for piece in self.board.black:
-                    print(piece.canAttack(new_pos))
             if not self.board.isGuarded(new_pos, guardColor) and piece.getColor() != self.getColor():
                 final.append(new_pos)
+        self.board.board[self.pos[0]][self.pos[1]] = self
         return final
+
+    def getGuards(self):
+        return self.getSpaceAround()

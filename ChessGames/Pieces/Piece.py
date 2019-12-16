@@ -23,6 +23,9 @@ class Piece:
     def getValidPositions(self):
         raise NotImplementedError
 
+    def getGuards(self, pos):
+        raise NotImplementedError
+        
     def canAttack(self, pos):
         positions = self.getValidPositions()
         if pos in positions:

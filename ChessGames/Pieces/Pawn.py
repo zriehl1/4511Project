@@ -51,3 +51,13 @@ class Pawn(Piece):
                 #self.moved = True
 
         return valid
+
+    def getGuards(self):
+        ret = []
+        cap_left = (self.pos[0]-1, self.pos[1]+self.direction)
+        cap_right = (self.pos[0]+1, self.pos[1]+self.direction)
+        if self.board.checkBounds(cap_left):
+            ret.append(cap_left)
+        if self.board.checkBounds(cap_right):
+            ret.append(cap_right)
+        return ret
