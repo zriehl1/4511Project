@@ -155,6 +155,19 @@ class TestBoard(unittest.TestCase):
         checkmate = self.board.isCheckmate("White")
         self.assertEqual(checkmate, False)
 
+    def test_checkmate1(self):
+        self.board.addPiece(King(self.board, (2,0), "White"))
+        self.board.addPiece(Rook(self.board, (3,4), "Black"))
+        self.board.addPiece(Rook(self.board, (1,4), "Black"))
+        self.board.addPiece(Rook(self.board, (0,1), "Black"))
+        self.board.addPiece(Knight(self.board, (4,1), "Black"))
+        self.board.printBoard()
+        print("-------------------------------------------")
+        check = self.board.checkKing("White")
+        self.assertEqual(check, True)
+        checkmate = self.board.isCheckmate("White")
+        self.assertEqual(checkmate, True)
+
 
 
 #

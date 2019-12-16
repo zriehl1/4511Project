@@ -29,6 +29,15 @@ class Microchess():
         self.board.fillBlanks()
         self.board.printBoard()
 
+    def endgame(self):
+        self.board = Board(4,5)
+        self.board.addPiece(King(self.board, (0,0), "Black"))
+        self.board.addPiece(King(self.board, (3,4), "White"))
+        self.board.addPiece(Rook(self.board, (3,1), "White"))
+        self.board.addPiece(Rook(self.board, (2,4), "White"))
+        self.board.fillBlanks()
+        self.board.printBoard()
+        
     def move(self, start, to):
         return self.board.movePiece(start, to)
 
@@ -78,6 +87,7 @@ class Microchess():
 
 if __name__ == "__main__":
     a = Microchess()
+    a.endgame()
     a.play()
 
 
