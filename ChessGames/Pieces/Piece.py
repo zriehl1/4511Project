@@ -25,11 +25,11 @@ class Piece:
 
     def getGuards(self, pos):
         raise NotImplementedError
-        
+
     def canAttack(self, pos):
         positions = self.getValidPositions()
         if pos in positions:
-            return True
+            return self
         return False
 
     def getPos(self):

@@ -91,6 +91,73 @@ class Board:
                 king = el
         return self.isGuarded(king.getPos(), other_color)
 
+    # captures a piece, checks to see if this induces check, put it back and return the result
+    def __checkCapture(self, start, end):
+        attacker = self.board[start[0]][start[1]]
+        captured = self.board[end[0]][end[1]]
+        self.board[start[0]][start[1]] = Blank(self.board, (start[0], start[1]), " ")
+        self.board[end[0]][end[1]] = attacker
+        result = self.checkKing(attacker.getColor())
+        self.board[start[0]][start[1]] = attacker
+        self.board[end[0]][end[1]] = captured
+        return result
+
+    # assumes there is an unbroken line between the two pieces
+    # ie strictly horizontal/vertical, or diagonal
+    # the return doesnt include the endpoints
+    def __getTilesBetween(self, start, end):
+        x_vals = []
+        y_vals = []
+        x_step = 1
+        y_step = 1
+        if start[0] > end[0]:
+            x_step = -1
+        if start[1] > end[1]:
+            y_step = -1
+        for i in range(start[0], end[0], x_step):
+            x_vals.append(i)
+        for j in range(start[1], end[1], y_step):
+            y_vals.append(j)
+        if start[0] == end[0]:
+            x_vals = [start[0] for i in range(len(y_vals))]
+        if start[1] == end[1]:
+            y_vals = [start[1] for i in range(len(x_vals))]
+        ret = []
+        if len(x_vals) != len(y_vals):
+            print("error")
+            return []
+        for i in range(len(x_vals)):
+            pos = (x_vals[i], y_vals[i])
+            if pos != start and pos != end:
+                ret.append(pos)
+        return ret
+
+    def getTiles(self, start, end):
+        return self.__getTilesBetween(start, end)
+
+    def tryBlock(self, attacker, save):
+        defenders = None
+        color = attacker.getColor()
+        if color == "Black":
+            defenders = self.white
+        else:
+            defenders = self.black
+        # attempt to capture the piece
+        for piece in defenders:
+            if piece.canAttack(attacker.getPos()):
+                if self.__checkCapture(piece.getPos(), attacker.getPos()):
+                    return True
+        if attacker.getChar() == "H": # if you cant capture the Knight, you can't block it
+            return False
+        tiles = self.__getTilesBetween(attacker.getPos(), save.getPos())
+        for tile in tiles:
+            for piece in defenders:
+                if piece.canAttack(tile):
+                    if self.__checkCapture(piece.getPos(), tile):
+                        return True
+        return False
+    # this function won't work perfectly, will miss checkmate if you can move a pinned piece to block check
+    # this should get picked up by the game, since it won't actually let you move the piece
     def isCheckmate(self, color):
         king = None
         pieces = None
@@ -106,7 +173,13 @@ class Board:
                 king = el
         if self.checkKing(color) and king.getValidPositions() == []:
             # also have to check that the checkmate cant be blocked
-            return True
+            to_block = []
+            for piece in attacking:
+                if piece.canAttack(king.getPos()):
+                    to_block.append(piece)
+            if len(to_block) > 1:
+                return True
+            return not self.tryBlock(piece, king)
         return False
 
 
