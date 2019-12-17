@@ -13,6 +13,9 @@ class Bishop(Piece):
     def buildMoveSet(self):
         self.moves = self._diagonalMoves()
 
+    def copyWithBoard(self, board):
+        return Bishop(board, self.getPos(), self.getColor())
+        
     def getValidPositions(self):
         max_dist = max(self.board.x_dim, self.board.y_dim)
         final = []

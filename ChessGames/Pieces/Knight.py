@@ -20,6 +20,9 @@ class Knight(Piece):
         self.moves.append((-1,-2))
         self.moves.append((-2,-1))
 
+    def copyWithBoard(self, board):
+        return Knight(board, self.getPos(), self.getColor())
+        
     def getValidPositions(self):
         final = []
         for move in self.moves:

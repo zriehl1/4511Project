@@ -13,6 +13,9 @@ class Rook(Piece):
     def buildMoveSet(self):
         self.moves = self._straightMoves()
 
+    def copyWithBoard(self, board):
+        return Rook(board, self.getPos(), self.getColor())
+
     def getValidPositions(self):
         max_dist = max(self.board.x_dim, self.board.y_dim)
         final = []

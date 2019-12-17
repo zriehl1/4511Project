@@ -18,6 +18,9 @@ class Pawn(Piece):
         else: # white and moving up
             self.direction = 1
 
+    def copyWithBoard(self, board):
+        return Pawn(board, self.getPos(), self.getColor())
+        
     def canAttack(self, pos):
         if pos[0] == self.pos[0]:
             return False

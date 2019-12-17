@@ -4,7 +4,7 @@ try:
 except:
     from .Piece import Piece
     from .Blank import Blank
-    
+
 class King(Piece):
 
     def __init__(self, board, pos, color):
@@ -16,6 +16,8 @@ class King(Piece):
         self.moves += self._straightMoves()
         self.moves += self._diagonalMoves()
 
+    def copyWithBoard(self, board):
+        return King(board, self.getPos(), self.getColor())
     def getSpaceAround(self):
         final = []
         for el in self.moves:

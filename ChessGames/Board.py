@@ -218,6 +218,16 @@ class Board:
 
         return True
 
+    # returns a copy of itself
+    def copy(self):
+        ret = Board(self.x_dim, self.y_dim)
+        for piece in self.white:
+            ret.addPiece(piece.copyWithBoard(ret))
+        for piece in self.black:
+            ret.addPiece(piece.copyWithBoard(ret))
+        ret.fillBlanks()
+        return ret
+
 
 
 

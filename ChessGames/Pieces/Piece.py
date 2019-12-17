@@ -17,6 +17,9 @@ class Piece:
     def _multiplyPos(self, pos, mult):
         return (pos[0] * mult, pos[1] * mult)
 
+    def copyWithBoard(self, board):
+        raise NotImplementedError
+
     def buildMoveSet(self):
         raise NotImplementedError
 
