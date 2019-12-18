@@ -126,6 +126,10 @@ class Board:
         ret = []
         if len(x_vals) != len(y_vals):
             print("error")
+            print(str(start[0]) + " " + str(end[0]))
+            print(str(start[1]) + " " + str(end[1]))
+            print(x_vals)
+            print(y_vals)
             return []
         for i in range(len(x_vals)):
             pos = (x_vals[i], y_vals[i])
