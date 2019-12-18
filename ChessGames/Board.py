@@ -194,28 +194,32 @@ class Board:
         rem.remove(piece)
 
     # returns True on sucessful move, False on failure
-    def movePiece(self, start, to):
+    def movePiece(self, start, to, bot=False):
         piece = self.board[start[0]][start[1]]
         if to not in piece.getValidPositions():
-            print("Not a valid move.")
+            if not bot:
+                print("Not a valid move.")
             return False
         captured = self.board[to[0]][to[1]]
-        isCheck = self.checkKing(piece.getColor())
+        # isCheck = self.checkKing(piece.getColor())
         # if isCheck and piece.getChar() != "K":
         #     print("Can't move this, you're in check.")
         #     return False
+        self.capturePiece(captured)
         self.board[to[0]][to[1]] = piece
         self.board[start[0]][start[1]] = Blank(self, (start[0],start[1]), "-")
         piece.setPos(to)
         isCheck2 = self.checkKing(piece.getColor())
         if isCheck2:
+            self.addPiece(captured)
             self.board[to[0]][to[1]] = captured
             self.board[start[0]][start[1]] = piece
             piece.setPos(start)
-            print("Can't move this. The move is pinned.")
+            if not bot:
+                print("Can't move this. The move is pinned.")
             return False
         piece.moved = True
-        self.capturePiece(captured)
+        #self.capturePiece(captured)
         self.lastMove = (start, to)
         return True
 

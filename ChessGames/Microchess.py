@@ -40,6 +40,15 @@ class Microchess():
         self.board.fillBlanks()
         self.board.printBoard()
 
+    def checkCapture(self):
+        self.board = Board(4,5)
+        self.board.addPiece(King(self.board, (3,0), "White"))
+        self.board.addPiece(Pawn(self.board, (3,1), "White"))
+        self.board.addPiece(King(self.board, (0,0), "Black"))
+        self.board.addPiece(Knight(self.board, (2,2), "Black"))
+        self.board.fillBlanks()
+        self.board.printBoard()
+
     def move(self, start, to):
         return self.board.movePiece(start, to)
 
@@ -64,6 +73,7 @@ class Microchess():
                     moveToWhite = (int(whiteIn2.split(" ")[0]), int(whiteIn2.split(" ")[1]))
                 if self.move(moveFromWhite, moveToWhite):
                     self.board.printBoard()
+                    print("---------------------")
                     self.turn += 1
                     inv = False
                 else:
@@ -83,6 +93,7 @@ class Microchess():
                     moveToBlack = (int(blackIn2.split(" ")[0]), int(blackIn2.split(" ")[1]))
                 if self.move(moveFromBlack, moveToBlack):
                     self.board.printBoard()
+                    print("---------------------")
                     self.turn += 1
                     inv = False
                 else:
@@ -93,7 +104,8 @@ class Microchess():
 if __name__ == "__main__":
     a = Microchess()
     #a.endgame()
-    a.play(allowAI=True, colorAI="Black")
+    #a.checkCapture()
+    a.play(allowAI=True, colorAI="White")
     #a.play()
 
 

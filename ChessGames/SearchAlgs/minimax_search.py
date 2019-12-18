@@ -32,7 +32,7 @@ class MinimaxNode:
             possible = piece.getValidPositions()
             for move in possible:
                 newBoard = self.board.copy()
-                valid = newBoard.movePiece(piece.getPos(), move)
+                valid = newBoard.movePiece(piece.getPos(), move, True)
                 if valid:
                     ret.append(newBoard)
         return ret
