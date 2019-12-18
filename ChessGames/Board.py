@@ -11,6 +11,7 @@ class Board:
         self.board = [[None for i in range(y)] for i in range(x)]
         self.black = []
         self.white = []
+        self.lastMove = None
 
     def printBoard(self):
         for i in range(self.y_dim-1, 0-1, -1):
@@ -200,9 +201,9 @@ class Board:
             return False
         captured = self.board[to[0]][to[1]]
         isCheck = self.checkKing(piece.getColor())
-        if isCheck and piece.getChar() != "K":
-            print("Can't move this, you're in check.")
-            return False
+        # if isCheck and piece.getChar() != "K":
+        #     print("Can't move this, you're in check.")
+        #     return False
         self.board[to[0]][to[1]] = piece
         self.board[start[0]][start[1]] = Blank(self, (start[0],start[1]), "-")
         piece.setPos(to)
@@ -215,7 +216,7 @@ class Board:
             return False
         piece.moved = True
         self.capturePiece(captured)
-
+        self.lastMove = (start, to)
         return True
 
     # returns a copy of itself

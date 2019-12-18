@@ -1,8 +1,10 @@
 from Pieces.AllPieces import *
 from Board import Board
+from SearchAlgs.minimax_search import *
 
 w = "White"
 b = "Black"
+
 class Microchess():
 
     board = None
@@ -37,7 +39,7 @@ class Microchess():
         self.board.addPiece(Rook(self.board, (2,4), "White"))
         self.board.fillBlanks()
         self.board.printBoard()
-        
+
     def move(self, start, to):
         return self.board.movePiece(start, to)
 
@@ -53,7 +55,8 @@ class Microchess():
                     print("Game over: Black Wins!")
                     return
                 if allowAI and colorAI == "White":
-                    pass # get the board for the AI to calc on
+                    ai = MinimaxNode(self.board, "White", 3)
+                    moveFromWhite,moveToWhite = ai.getMove()
                 else:
                     whiteIn = input("White x y move from: ")
                     moveFromWhite = (int(whiteIn.split(" ")[0]), int(whiteIn.split(" ")[1]))
@@ -70,7 +73,9 @@ class Microchess():
                     print("Game over: White Wins!")
                     return
                 if allowAI and colorAI == "Black":
-                    pass # get the board for the AI to calc on
+                    ai = MinimaxNode(self.board, "Black", 3)
+                    moveFromBlack,moveToBlack = ai.getMove()
+                    print(moveFromBlack)
                 else:
                     blackIn = input("Black x y move from: ")
                     moveFromBlack = (int(blackIn.split(" ")[0]), int(blackIn.split(" ")[1]))
@@ -87,8 +92,9 @@ class Microchess():
 
 if __name__ == "__main__":
     a = Microchess()
-    a.endgame()
-    a.play()
+    #a.endgame()
+    a.play(allowAI=True, colorAI="Black")
+    #a.play()
 
 
 
