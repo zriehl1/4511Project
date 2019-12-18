@@ -132,14 +132,22 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(result, False)
 
     def test_not_checkmate2(self):
+        whiteRook = Rook(self.board, (1,1), "White")
         self.board.addPiece(King(self.board, (2,0), "White"))
-        self.board.addPiece(Rook(self.board, (1,1), "White"))
+        self.board.addPiece(whiteRook)
         self.board.addPiece(Rook(self.board, (0,0), "Black"))
         self.board.addPiece(Rook(self.board, (4,1), "Black"))
         self.board.printBoard()
         print("-------------------------------------------")
         result = self.board.isCheckmate("White")
         self.assertEqual(result, False)
+
+    def test_check_error(self):
+        self.board.addPiece(King(self.board, (3,0), "White"))
+        self.board.addPiece(Rook(self.board, (2,0), "White"))
+        self.board.addPiece(Rook(self.board, (1,0), "Black"))
+        res = self.board.checkKing("White")
+        self.assertEqual(res, False)
 
     def test_not_checkmate3(self):
         self.board.addPiece(King(self.board, (2,0), "White"))
@@ -185,6 +193,28 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(check, True)
         self.assertEqual(checkmate, True)
 
+    def test_not_checkmate4(self):
+        self.board = Board(4,5)
+        blackPawn = Pawn(self.board, (0,3), "Black")
+        whiteRook = Rook(self.board, (0,0), "White")
+        whitePawn = Pawn(self.board, (3,2), "White")
+        self.board.addPiece(whiteRook)
+        self.board.addPiece(King(self.board, (3,0), "White"))
+        self.board.addPiece(Bishop(self.board, (0,1), "White"))
+        self.board.addPiece(Knight(self.board, (1,2), "White"))
+        self.board.addPiece(whitePawn)
+        self.board.addPiece(King(self.board, (0,4), "Black"))
+        self.board.addPiece(Knight(self.board, (1,4), "Black"))
+        self.board.addPiece(Bishop(self.board, (2,4), "Black"))
+        self.board.addPiece(blackPawn)
+        self.board.addPiece(Rook(self.board, (1,3), "Black"))
+        self.board.fillBlanks()
+        self.board.printBoard()
+        print("-------------------------------------------")
+        check = self.board.checkKing("Black")
+        checkmate = self.board.isCheckmate("Black")
+        self.assertEqual(check, True)
+        self.assertEqual(checkmate, False)
 
 
 #

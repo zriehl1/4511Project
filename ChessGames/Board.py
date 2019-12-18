@@ -98,10 +98,12 @@ class Board:
         captured = self.board[end[0]][end[1]]
         self.board[start[0]][start[1]] = Blank(self.board, (start[0], start[1]), " ")
         self.board[end[0]][end[1]] = attacker
+        self.capturePiece(captured)
         result = self.checkKing(attacker.getColor())
         self.board[start[0]][start[1]] = attacker
         self.board[end[0]][end[1]] = captured
-        return result
+        self.addPiece(captured)
+        return not result
 
     # assumes there is an unbroken line between the two pieces
     # ie strictly horizontal/vertical, or diagonal
@@ -126,10 +128,6 @@ class Board:
         ret = []
         if len(x_vals) != len(y_vals):
             print("error")
-            print(str(start[0]) + " " + str(end[0]))
-            print(str(start[1]) + " " + str(end[1]))
-            print(x_vals)
-            print(y_vals)
             return []
         for i in range(len(x_vals)):
             pos = (x_vals[i], y_vals[i])
@@ -139,6 +137,9 @@ class Board:
 
     def getTiles(self, start, end):
         return self.__getTilesBetween(start, end)
+
+    def capCheck(self, x, y):
+        return self.__checkCapture(x,y)
 
     def tryBlock(self, attacker, save):
         defenders = None
@@ -184,7 +185,7 @@ class Board:
                     to_block.append(piece)
             if len(to_block) > 1:
                 return True
-            return not self.tryBlock(piece, king)
+            return not self.tryBlock(to_block[0], king)
         return False
 
 

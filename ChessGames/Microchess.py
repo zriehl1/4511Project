@@ -64,7 +64,7 @@ class Microchess():
                     print("Game over: Black Wins!")
                     return
                 if allowAI and colorAI == "White":
-                    ai = MinimaxNode(self.board, "White", 4)
+                    ai = MinimaxNode(self.board, "White", 3)
                     moveFromWhite,moveToWhite = ai.getMove()
                 else:
                     whiteIn = input("White x y move from: ")
@@ -83,7 +83,7 @@ class Microchess():
                     print("Game over: White Wins!")
                     return
                 if allowAI and colorAI == "Black":
-                    ai = MinimaxNode(self.board, "Black", 4)
+                    ai = MinimaxNode(self.board, "Black", 3)
                     moveFromBlack,moveToBlack = ai.getMove()
                     print(moveFromBlack)
                 else:
